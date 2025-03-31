@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+// update message file name if needed.
 #define MSG_FILE "msg.txt"
 #define MAX_MSG_SIZE 5000
 
@@ -17,9 +18,10 @@ double check_accuracy(char*, int);
 #include <stdint.h>
 #include <time.h>
 
+// Make sure this file exists.
 #define LIBM_PATH "/usr/lib/libm.so.6"
 
-#define SIG_DURATION 3
+#define REPEAT_COUNT 3 // redundancy in transmitting a bit.
 
 void* map_shared_library(const char*);
 void* lookup_function(void*, const char*);

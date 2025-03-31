@@ -6,6 +6,7 @@
 #define HIT_THRESHOLD 95 // Update it as per the result of running 
                          // calibration executable
 
+// time in ms for which a cache state is to be maintained to register a read.
 #define SIGNAL_DURATION_RX 1
 
 // enum type of different states the channel can be in
@@ -149,7 +150,7 @@ unsigned char channel_read_byte(void *my_sin, void *my_sqrt) {
                                // by spamming init state
         size_t garbage_jumps = 0;
  
-        size_t read_threshold = SIG_DURATION;
+        size_t read_threshold = REPEAT_COUNT;
         while (read_threshold-- != 0) {
 
 garbage_detected:
@@ -196,7 +197,7 @@ int main() {
 
     // Load the libm library symbol via dlopen
     void *handle = dlopen(LIBM_PATH, RTLD_NOW | RTLD_GLOBAL);
-    assert(handle && "dlopen failed");
+    assert(handle && "dlopen failed, make sure file at LIBM_PATH exists");
 
     void **function_ptrs = get_func_ptrs_array(handle);
 

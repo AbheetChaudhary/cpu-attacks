@@ -6,7 +6,9 @@
 #include "cacheutils.h"
 #include "utils.h"
 
+// time in ms for which a cache state is to be maintained to register a read.
 #define SIGNAL_DURATION_TX 1
+
 #define INNER_LOOP_COUNT 1024
 
 void send_garbage_signal(void *my_sin, void *my_sqrt) {
@@ -72,11 +74,11 @@ void write_byte(unsigned char byte, void *my_sin, void *my_sqrt) {
         int ls_bit = 0x01 & byte; // least significant bit
         byte /= 2;
         if (ls_bit == 1) {
-            for (int duration = SIG_DURATION; duration > 0; duration--) {
+            for (int duration = REPEAT_COUNT; duration > 0; duration--) {
                 send_one_signal(my_sin, my_sqrt);
             }
         } else {
-            for (int duration = SIG_DURATION; duration > 0; duration--) {
+            for (int duration = REPEAT_COUNT; duration > 0; duration--) {
                 send_zero_signal(my_sin, my_sqrt);
             }
         }
@@ -110,8 +112,6 @@ void *get_func_ptrs_array(void* handle) {
 }
 
 int main() {
-
-    // ********** DO NOT MODIFY THIS SECTION **********
     FILE *fp = fopen(MSG_FILE, "r");
     if(fp == NULL){
         printf("Error opening file\n");
@@ -127,8 +127,6 @@ int main() {
     fclose(fp);
 
     clock_t start = clock();
-    // **********************************************
-    // ********** YOUR CODE STARTS HERE **********
 
     // Load the libm library symbols via dlopen
     void *handle = dlopen(LIBM_PATH, RTLD_NOW | RTLD_GLOBAL);
@@ -168,7 +166,7 @@ programs\n");
     }
 
     // Send end-message signal.
-    for (int duration = SIG_DURATION; duration > 0; duration--) {
+    for (int duration = REPEAT_COUNT; duration > 0; duration--) {
         send_init_signal(my_sin, my_sqrt);
     }
 
@@ -182,15 +180,12 @@ programs\n");
         exit(-1);
     }
 
-    // ********** YOUR CODE ENDS HERE **********
-    // ********** DO NOT MODIFY THIS SECTION **********
     clock_t end = clock();
     double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
     printf("Message sent successfully\n");
     printf("Time taken to send the message: %f\n", time_taken);
     printf("Message size: %d\n", msg_size);
     printf("Bits per second: %f\n", msg_size * 8 / time_taken);
-    // **********************************************
 
     return 0;
 }

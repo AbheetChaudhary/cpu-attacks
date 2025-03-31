@@ -21,12 +21,13 @@
 // Update the library to try something different.
 // LIB_NAME is the short name of the library as used by gcc.
 // Ex: ssl for libssl, crypto for libcryoto, c for libc, etc.
-#define LIB_NAME "c" // 'm' is from '-lm' for libm in gcc
+#define LIB_NAME "c" // 'm' is from '-lm', 'c' is from '-lc' for libm & libc in gcc
 
 // This full name is what the receiver will expand to for the above LIB_NAME
-// example. The ending .so.6 value is hardcoded on receiver side. Make sure
-// that whatever library name you use, its corresponding full name exists
-// somewhere in the standard library directories
+// example. Receiver will first expand it to the name as used by gcc then add a
+// suffix to create the full library name. The ending .so.6 value is hardcoded
+// on receiver side. Make sure that whatever library name you use, its
+// corresponding full name exists somewhere in the standard library directories
 #define FULL_LIB_NAME "libc.so.6" // make sure the full lib path exists for
                                   // whatever library you use
 
@@ -35,15 +36,18 @@
 // calculations. 
 // Make sure these function take a double and return a double. This 
 // particular function signature is hardcoded in the rest of the code.
+//
+// CAUTION: Do not use common functions like malloc or free, they are always being used
+// by something in the background and that will cause false positives.
 #define FIRST_FUNC_NAME "ffs"
 #define SECOND_FUNC_NAME "bzero"
 
 // Contact info as per the protocol.
 #define CONTACT_INFO ("Hi" LIB_NAME ":" FIRST_FUNC_NAME ":" SECOND_FUNC_NAME)
 
-#define HIT_THRESHOLD 95 // from task2a
+#define HIT_THRESHOLD 95 // from flush+reload
 
-#define SIGNAL_DURATION_RX 1 // from task2a
+#define SIGNAL_DURATION_RX 1 // from flush+reload
 
 #define MSIZE 2048 // matrix size
 

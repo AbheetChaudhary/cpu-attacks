@@ -43,17 +43,16 @@ static inline __attribute__((always_inline)) size_t fast_rand() {
     return state;
 }
 
-// Convert CPU cycles to microseconds
+// Convert CPU cycles to microseconds. rdtsc_to_us & scaled_time are not needed,
+// but I realized that too late so I will let it be.
 static inline uint64_t __attribute__ ((always_inline)) rdtsc_to_us(uint64_t start, uint64_t freq) {
     return (start * 1000000ULL) / freq;  // Convert CPU cycles to µs
 }
 
-// Converts time(real, not normalized) time from rdtsc to 
 static inline uint64_t __attribute__ ((always_inline))
 scaled_time(uint64_t time, float scale_factor) {
     return (uint64_t) ((float) time * scale_factor);
 }
-
 
 // Get CPU TSC frequency (run once)
 uint64_t get_cpu_freq() {
@@ -108,16 +107,27 @@ int main() {
 
     fprintf(stderr, "[RECEIVER] Listening...press enter at sender side\n");
 
-#define COUNTERS (100 * 8)
-    size_t counter_values[COUNTERS] = { 0 };
+    size_t counter_values[UP_DOWNS * 8] = { 0 };
 
-    for (int i = 0; i < COUNTERS; i++) {
+    for (int i = 0; i < UP_DOWNS * 8; i++) {
         size_t ctr = observe_cache();
         counter_values[i] = ctr;
     }
 
-    for (int i = 0; i < COUNTERS; i++) {
+    FILE *fp = fopen("counter_values.txt", "w");
+
+    for (int i = 0; i < UP_DOWNS * 8; i++) {
         printf("i: %d, counter: %zu\n", i, counter_values[i]);
+        fprintf(fp, "i: %d, counter: %zu\n", i, counter_values[i]);
     }
 
+    fclose(fp);
+
+    printf("results stored in ./counter_values.txt, use the following gnuplot \
+command to plot the counter values: \
+`plot \"counter_values.txt\" using 2:4 title \"Counter Values\"\n");
+
+    printf("Near the end the counter values will most likely be clustered around a high and a \
+low value, if you don't see such then you probably delayed pressing \
+enter on sender side. Try again! or increase the UP_DOWNS value in utils.h.\n");
 }

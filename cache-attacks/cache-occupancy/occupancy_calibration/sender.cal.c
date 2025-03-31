@@ -168,7 +168,7 @@ to start transmission.");
         fprintf(stderr, "[ERROR] keyboard interrupt received. Exiting.\n");
     }
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < UP_DOWNS; i++) {
         if (i % 2 == 0) {
             /* printf("thrashing...%2d\n", i); */
             send_bit_one();
