@@ -3,7 +3,7 @@
 #include "cacheutils.h"
 #include "utils.h"
 
-#define HIT_THRESHOLD 95 // Update it as per the result of running 
+#define HIT_THRESHOLD 90 // Update it as per the result of running 
                          // calibration executable
 
 // time in ms for which a cache state is to be maintained to register a read.

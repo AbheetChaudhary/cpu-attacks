@@ -107,8 +107,6 @@ int main() {
     }
     fclose(fp);
 
-    clock_t start = clock();
-
     // set signal handlers
     struct sigaction s_zero;
     s_zero.sa_handler = activate_instant_kill;
@@ -144,7 +142,7 @@ to start transmission.");
         send_bit_zero();
     }
 
-    printf("[SENDER] init code transmitted...restart if receiver did not acknowledged \
+    printf("[SENDER] init signal transmitted...restart if receiver did not acknowledged \
 by logging to terminal\n");
 
     // transmit each byte
@@ -170,12 +168,8 @@ by logging to terminal\n");
         send_bit_zero();
     }
 
-    clock_t end = clock();
-    double time_taken = ((double)end - start) / CLOCKS_PER_SEC;
-    printf("Message sent successfully\n");
-    printf("Time taken to send the message: %f\n", time_taken);
     printf("Message size: %d\n", msg_size);
-    printf("Bits per second: %f\n", msg_size * 8 / time_taken);
+    printf("Message sent successfully\n");
 
     return 0;
 }

@@ -315,7 +315,7 @@ to start transmission.");
         send_bit_zero();
     }
 
-    printf("[SIMRAN] init code transmitted...restart if receiver did not acknowledged \
+    printf("[SIMRAN] init signal transmitted...restart if receiver did not acknowledged \
 by logging to terminal\n");
 
     // transmit each byte
@@ -369,7 +369,7 @@ for a while.\n");
         }
     }
 
-    fprintf(stderr, "[SIMRAN] received init code...\n");
+    fprintf(stderr, "[SIMRAN] received init signal...\n");
 
     // receive file size as int
     int file_size = 0;
@@ -411,7 +411,8 @@ for a while.\n");
 
     fprintf(stderr, "[SIMRAN] Successfully written %d bytes of data to %s\n",
             file_size, received_filename);
-    fprintf(stderr, "[SIMRAN] manually check the quality by viewing the file...");
+    fprintf(stderr, "[SIMRAN] manually check the quality by viewing the file. \
+Sometimes it could get 100%% accuracy on a low noise system(file hashes will match)\n");
 
     // Close the handle to the library
     int rv = dlclose(handle);

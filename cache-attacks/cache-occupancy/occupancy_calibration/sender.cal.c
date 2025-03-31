@@ -159,7 +159,7 @@ int main() {
 
 
     fprintf(stderr,"[SENDER] Run the receiver executable in another terminal and \
-put it in listening mode. Then back in this terminal press any key \
+put it in listening mode. Then back in this terminal IMMEDIATELY press any key \
 to start transmission.");
 
 

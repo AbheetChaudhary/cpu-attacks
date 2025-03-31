@@ -15,13 +15,13 @@ double check_accuracy(char*, int);
 // counter threshold for my machine.
 // Do not update this unless you are trying to increase bandwidth by
 // experimenting.
-#define OCCU_SIG_DURATION 8 // 0.910 Mil
+#define OCCU_SIG_DURATION 8 // 120000
 
 // flush+reload signal duration
 #define FR_SIG_DURATION 3
 
 // Redundancy. Repeat the signal for this many times
-#define REPEAT 5
+#define REPEAT 8
 
 #define LIBM "libm.so.6" // may be different on user system
 

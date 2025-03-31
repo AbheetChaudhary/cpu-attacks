@@ -281,7 +281,7 @@ int main() {
         }
     }
 
-    fprintf(stderr, "[RAJ] init code received...\n");
+    fprintf(stderr, "[RAJ] init signal received...\n");
 
     // Array to store received bits. This has a lot of redundancy that makes
     // it too long.
@@ -313,7 +313,7 @@ int main() {
     }
 
     // Assume that the message is beginning with 'Hi' and the 'bits' array
-    // will also have some remenaining bits from the init code(\0) transmitted
+    // will also have some remenaining bits from the init signal(\0) transmitted
     // before that.
     // This means that the bits array will begin with something like this.
     //
@@ -322,7 +322,7 @@ int main() {
     // |     |                                                     'i' begins
     // |     'H' (00010010 reversed) begins
     // |
-    // part of init code
+    // part of init signal
     //
     // In our reconstructed message, we will hardcode H as first byte and before
     // decoding 'bits' we will make sure it points to where 'i' begins.

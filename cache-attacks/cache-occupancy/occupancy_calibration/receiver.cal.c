@@ -22,8 +22,6 @@
 
 #define L3_SIZE 4 * 1024 * 1024 // 4MB
 
-size_t COUNTER_THRESHOLD = 910000;
-
 uint64_t FREQ; // cpu TCS frequency
 float SCALE_FACTOR; // scale factor to correct rdtsc().
                     // This is because rdtsc tics count is normalized across
@@ -97,7 +95,8 @@ int main() {
     uint64_t elapsed = __rdtsc() - start;
     SCALE_FACTOR = (float) rdtsc_to_us(elapsed, FREQ) / 1000;
 
-    fprintf(stderr, "[RECEIVER] Press any key to initiate listening...\n");
+    fprintf(stderr, "[RECEIVER] Press any key to initiate listening, after that \
+immediately press any key on sender side. Don't delay!\n");
 
     int _c;
     if ((_c = getchar()) == EOF) {

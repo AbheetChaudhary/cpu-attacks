@@ -14,8 +14,8 @@ double check_accuracy(char*, int);
 // Time(ms) for which keep the cache thrashed. Thrashed cache will be 
 // interpreted as 0 in the receiver. The number in comment is the
 // counter threshold.
-#define SIG_DURATION 2 // 0.910 Mil
+#define SIG_DURATION 8 // 125000
 // #define SIG_DURATION 32 // 0.910 Mil
 
 // Redundancy. Repeat the signal for this many times
-#define REPEAT 6
+#define REPEAT 8

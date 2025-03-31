@@ -15,7 +15,7 @@ double check_accuracy(char*, int);
 // #define SIG_DURATION 64 // 0.910 Mil
 // #define SIG_DURATION 16 // 245000
 // #define SIG_DURATION 10 // 150000
-#define SIG_DURATION 8 // 120000
+#define SIG_DURATION 8 // 125000
 // #define SIG_DURATION 4 // 65000
 // #define SIG_DURATION 64 // 480000
 
